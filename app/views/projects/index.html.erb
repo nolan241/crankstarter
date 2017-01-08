@@ -1,0 +1,21 @@
+<%= if @displayed_projects.any? %>
+
+<%= render "projects/carousel" %>
+
+<div class="container">
+	<br><br><br>
+	<h3 class="project-subtitle">Our Project</h3>
+	<div class="row">
+		<%= render 'projects' %>
+	</div>
+</div>
+
+<%= else %>
+
+<div class="container text-center">
+	<br><br><br>
+	<h2>Create your first project</h2>
+	<%= link_to "Start project!", "#", class: "btn btn-success btn-lg" %>
+</div>
+
+<%= end %>
