@@ -30,3 +30,6 @@ gem "font-awesome-rails"
 
 # Devise
 gem 'devise'
+
+# Annotate Models
+gem 'annotate', github: 'ctran/annotate_models'

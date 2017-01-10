@@ -1,4 +1,4 @@
-<%= if @displayed_projects.any? %>
+<% if @displayed_projects.any? %>
 
 <%= render "projects/carousel" %>
 
@@ -10,7 +10,7 @@
 	</div>
 </div>
 
-<%= else %>
+<% else %>
 
 <div class="container text-center">
 	<br><br><br>
@@ -18,4 +18,4 @@
 	<%= link_to "Start project!", "#", class: "btn btn-success btn-lg" %>
 </div>
 
-<%= end %>
+<% end %>
