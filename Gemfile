@@ -34,5 +34,8 @@ gem 'devise'
 # Annotate Models
 gem 'annotate', github: 'ctran/annotate_models'
 
+# Wysiwyg Bootstrap
+gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
+
 # Simple Form
 gem 'simple_form'
