@@ -33,3 +33,6 @@ gem 'devise'
 
 # Annotate Models
 gem 'annotate', github: 'ctran/annotate_models'
+
+# Simple Form
+gem 'simple_form'
