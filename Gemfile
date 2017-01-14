@@ -42,3 +42,9 @@ gem 'simple_form'
 
 # Date Validator
 gem 'date_validator'
+
+# Date Picker
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+
+# MomentJS
+gem 'momentjs-rails'
