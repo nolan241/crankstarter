@@ -15,9 +15,6 @@ class RewardsController < ApplicationController
         end
     end
     
-    def edit
-    end
-    
     def create
         @reward = @project.rewards.build(reward_params)
         respond_to do |format|
@@ -27,6 +24,9 @@ class RewardsController < ApplicationController
                 format.html { render :new }
             end
         end
+    end
+   
+    def edit
     end
     
     def update
@@ -47,14 +47,14 @@ class RewardsController < ApplicationController
     end
     
  private 
-        
+
     def set_project
         @project = Project.find(params[:project_id])
     end
 
-    def set_reward
-      @reward = @project.rewards.find(params[:id])
-    end
+	def set_reward
+		@reward = @project.rewards.find(params[:id])
+	end    
     
     def reward_params
         params.require(:reward).permit(:name, :description, :value, :shipping, :number_available, :estimated_delivery)

@@ -15,7 +15,7 @@
           <div class="container">
             <h2><%= project.name %></h2>
             <p><%= project.short_description %></p>
-            <%= link_to "View Project", "#", class: "btn btn-success btn-lg" %>
+            <%= link_to "View Project", project_path(project), class: "btn btn-success btn-lg" %>
           </div>
         </div>
       </div>

@@ -48,3 +48,8 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 
 # MomentJS
 gem 'momentjs-rails'
+
+#rails chrome plugin
+group :development do
+  gem 'meta_request'
+end

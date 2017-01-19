@@ -19,6 +19,6 @@ class Project < ActiveRecord::Base
     belongs_to :user
     has_many :rewards
 
-    validates :name, :short_description, :description, :image_url, :goal, presence: true
+    validates :expiration_date, date: { after: Date.today }
+    validates :name, :short_description, :description, :image_url, :goal, :expiration_date, presence: true
 end
-#removed :expiration_date,  wtf!?

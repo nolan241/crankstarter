@@ -24,20 +24,10 @@ class ProjectsController < ApplicationController
         @displayed_projects = Project.take(4)
     end
     
-    
-    def show
-    end
-    
-    
     def new
         @project = Project.new
     end
     
-    
-    def edit
-    end
-
-
     def create
     	@project = current_user.projects.build(project_params)
     
@@ -52,7 +42,9 @@ class ProjectsController < ApplicationController
     	end
     end
 
-    
+    def edit
+    end
+
     def update
         respond_to do |format|
           if @project.update(project_params)
@@ -65,7 +57,10 @@ class ProjectsController < ApplicationController
         end
     end
     
-
+    def show
+    	@rewards = @project.rewards
+    end
+    
     def destroy
         @project.destroy
         respond_to do |format|
@@ -75,7 +70,7 @@ class ProjectsController < ApplicationController
     end
     
     
-    private
+  private
 
     def set_project
       @project = Project.find(params[:id])
