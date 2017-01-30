@@ -21,4 +21,9 @@ class Project < ActiveRecord::Base
 
     validates :expiration_date, date: { after: Date.today }
     validates :name, :short_description, :description, :image_url, :goal, :expiration_date, presence: true
+    
+
+	def pledges
+		rewards.flat_map(&:pledges)
+	end
 end

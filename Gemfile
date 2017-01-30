@@ -18,7 +18,12 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+
+  #rails chrome plugin
+  gem 'meta_request'
 end
+
+
 
 #### My Gems ####
 
@@ -49,7 +54,6 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 # MomentJS
 gem 'momentjs-rails'
 
-#rails chrome plugin
-group :development do
-  gem 'meta_request'
-end
+# Braintree
+gem 'braintree'
+
