@@ -3,7 +3,6 @@ class Pledge < ActiveRecord::Base
     belongs_to :reward
     
     before_validation :generate_uuid!, :on => :create
-    
     validates_presence_of :name, :address, :city, :country, :postal_code, :amount, :user_id
     
     def generate_uuid!
