@@ -6,13 +6,45 @@ class PaymentsController < ApplicationController
     before_action :set_client_token
 
     def new
-        @pledge = current_user.pledges.build(payment_params
-        )
+        @pledge = current_user.pledges.build(payment_params)
         @rewards = @project.rewards
         
         respond_to do |format|
+           if @reward && @amount.present? && @reward.value <= @amount
+               format.html
+           else
+               if @amount.present?
+                   flash[:error] = "Must be greater than reward"
+               else
+                   flash[:error] = "You must provide an amount!"
+               end
+               format.html { redirect_to new_project_pledge_path(reward: @reward)}
+            end
         end
     end
+    
+    def create
+        @pledge = current_user.pledges.build(payment_params)
+        
+        respond_to do |format|
+            if @pledge.valid?
+                if current_user customer_id && Braintree::Customer.find(current_user.customer_id)
+                    @pledge.save 
+                    format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
+                else
+                    result = Braintree::Customer.create(
+                    :email => current_user.email,
+                    :payment_method_nonce => parms[:parms_payment_method_nonce]
+                    )
+                    if results.success?
+                        @pledge.save?
+                        format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
+                    end
+                end
+            end
+        end
+    end
+    
 
 private
     def set_project
@@ -20,14 +52,14 @@ private
     end
     
     def set_amount
-        @amount = payment_params[:amount].to.i
+        @amount = payment_params[:amount].to_i
     end
     
     def set_reward
         @reward = @project.rewards.find_by_id(payment_params[:reward_id])
     end
     
-    def set_token
+    def set_client_token
         @client_token = Braintree::ClientToken.generate(:customer_id => current_user.customer_id)
     end
     
