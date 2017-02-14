@@ -23,27 +23,35 @@ class PaymentsController < ApplicationController
         end
     end
     
-    def create
-        @pledge = current_user.pledges.build(payment_params)
-        
-        respond_to do |format|
-            if @pledge.valid?
-                if current_user.customer_id && Braintree::Customer.find(current_user.customer_id)
-                    @pledge.save 
-                    format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
-                else
-                    result = Braintree::Customer.create(
-                    :email => current_user.email,
-                    :payment_method_nonce => params[:payment_method_nonce]
-                    )
-                    if result.success?
-                        @pledge.save
-                        format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
-                    end
-                end
-            end
-        end
-    end
+
+  	def create
+  		@pledge = current_user.pledges.build(payment_params)
+  		
+	    respond_to do |format|
+	      	if @pledge.valid?
+		        if current_user.customer_id && Braintree::Customer.find(current_user.customer_id)
+		        	@pledge.save
+		          	format.html { redirect_to project_path(@project), notice: "Your pledge was successfully created." }
+		        else
+		          	result = Braintree::Customer.create( 
+		            	:email => current_user.email, 
+		            	:payment_method_nonce => params[:payment_method_nonce] 
+		          	)
+		          	if result.success?
+		            	@pledge.save
+		            	current_user.update(customer_id: result.customer.id)
+		            	format.html { redirect_to project_path(@project), notice: "Your pledge was successfully created." }
+		          	else
+		            	flash.now[:error] = result.errors.map(&:message)
+		            	format.html {render :new }
+		          	end        
+		        end        
+	      	else
+	        	flash.now[:error] = "Pledge is invalid"
+	        	format.html {render :new }
+	      	end     
+	    end
+  	end
     
 
 private
@@ -59,9 +67,9 @@ private
         @reward = @project.rewards.find_by_id(payment_params[:reward_id])
     end
     
-    def set_client_token
-        @client_token = Braintree::ClientToken.generate(:customer_id => current_user.customer_id)
-    end
+	def set_client_token
+		@client_token = Braintree::ClientToken.generate(:customer_id => current_user.customer_id)
+	end
     
     def payment_params
          params.require(:pledge).permit(:reward_id, :name, :amount, :address, :city, :country, :postal_code)
