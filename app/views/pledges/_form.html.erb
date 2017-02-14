@@ -1,4 +1,4 @@
-<%= simple_form_for @pledge, url:  new_project_payment_path(@project), method: :get do |f| %>
+<%= simple_form_for @pledge, url: new_project_payment_path(@project), method: :get do |f| %>
 	
 	<h1>Alrighty!</h1>
 	<h2>Enter your pledge amount</h2>
@@ -16,7 +16,7 @@
 		<% end %>
 	</fieldset>
 	
-	<%= f.submit "Continu to next step", class: "btn btn-success btn-md pull-right" %>
+	<%= f.submit "Continue to next step", class: "btn btn-success btn-md pull-right" %>
 	<div class="clearfix"></div>
 	
 <% end %>

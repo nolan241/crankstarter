@@ -28,16 +28,16 @@ class PaymentsController < ApplicationController
         
         respond_to do |format|
             if @pledge.valid?
-                if current_user customer_id && Braintree::Customer.find(current_user.customer_id)
+                if current_user.customer_id && Braintree::Customer.find(current_user.customer_id)
                     @pledge.save 
                     format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
                 else
                     result = Braintree::Customer.create(
                     :email => current_user.email,
-                    :payment_method_nonce => parms[:parms_payment_method_nonce]
+                    :payment_method_nonce => params[:payment_method_nonce]
                     )
-                    if results.success?
-                        @pledge.save?
+                    if result.success?
+                        @pledge.save
                         format.html { redirect_to project_path(@project), "Your pledge was successfully added!" }
                     end
                 end
