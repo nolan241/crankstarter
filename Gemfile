@@ -57,3 +57,5 @@ gem 'momentjs-rails'
 # Braintree
 gem 'braintree'
 
+# Delayed Job Active Record
+gem 'delayed_job_active_record'
