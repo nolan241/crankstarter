@@ -22,5 +22,8 @@ module Workspace
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    
+    #config application to enqueue jobs with the delayed_job adapter to charge pledges on project expiration. see project.rb charge_backers_if_funded
+    config.active_job.queue_adapter = :delayed_job
   end
 end

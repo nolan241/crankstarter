@@ -21,6 +21,7 @@ class Project < ActiveRecord::Base
 
     validates :expiration_date, date: { after: Date.today }
     validates :name, :short_description, :description, :image_url, :goal, :expiration_date, presence: true
+    after_create :charge_backers_if_funded
     
 
 	def pledges
@@ -66,6 +67,11 @@ class Project < ActiveRecord::Base
 
     def start_project
       self.expiration_date = 1.month.from_now
+    end
+    
+    #execute the code in the charge_backers_job.rb file once the expiration date is reached
+    def charge_backers_if_funded
+      ChargeBackersJob.set(wait_until: self.expiration_date).perform_later self.id
     end
 
 end

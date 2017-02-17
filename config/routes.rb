@@ -9,4 +9,7 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
   
+  #delayed jobs route /delayed_job/overview - access the interface and retry failed jobs
+  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  
 end

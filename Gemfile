@@ -59,3 +59,6 @@ gem 'braintree'
 
 # Delayed Job Active Record
 gem 'delayed_job_active_record'
+
+# Delayed Job Web
+gem 'delayed_job_web'
