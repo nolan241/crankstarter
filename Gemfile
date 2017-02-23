@@ -62,3 +62,6 @@ gem 'delayed_job_active_record'
 
 # Delayed Job Web
 gem 'delayed_job_web'
+
+# friendly id for using common phrases in url
+gem 'friendly_id', '~> 5.1.0' 

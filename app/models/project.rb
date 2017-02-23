@@ -16,6 +16,11 @@
 #
 
 class Project < ActiveRecord::Base
+    
+    #generate friendly url for the projects paths
+    extend FriendlyId
+    friendly_id :slug_candidates, use: :slugged
+    
     belongs_to :user
     has_many :rewards
 
@@ -72,6 +77,13 @@ class Project < ActiveRecord::Base
     #execute the code in the charge_backers_job.rb file once the expiration date is reached
     def charge_backers_if_funded
       ChargeBackersJob.set(wait_until: self.expiration_date).perform_later self.id
+    end
+    
+    def slug_candidates
+        [
+            :name, 
+            [:name, :created_at]
+        ]
     end
 
 end
