@@ -8,6 +8,10 @@ class RewardsController < ApplicationController
     #need to know to which particular reward we're referring to except 
     before_action :set_reward, except: [:new, :create]
 
+    #authorize user access through the project 
+    load_and_authorize_resource :through => :project 
+    
+    
     def new
         @reward = @project.rewards.build
         respond_to do |format|

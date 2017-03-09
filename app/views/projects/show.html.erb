@@ -8,19 +8,34 @@
 		</div>
 		
 		<div class="row">
+			<!-- project image and link --> 
 			<div class="col-md-8">
 				<%= link_to image_tag(@project.image_url, alt: @project.name, width: '100%'), project_path(@project) %>
 			</div>
+
 			<div class="col-md-4">
-				<div class="project-mgmt">
-					<%= link_to 'Edit', edit_project_path(@project) %>
-					<%= link_to 'Delete', project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
-				</div>
+				<!-- when project manager is logged in, allow editing project-->
+				<% if can? :manage, @project %> 
+					<div class="project-mgmt">
+						<%= link_to 'Edit', edit_project_path(@project) %>
+						<%= link_to 'Delete', project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+					</div>
+				<% end %> 
+				
                 <%= render 'stats' %>
-                <%= link_to 'See project backers', project_pledges_path(@project), class: "btn btn-success btn-lg" %>
-                <%= link_to 'Back this project', new_project_pledge_path(@project), class: "btn btn-success btn-lg" %>
+                
+                <!-- if project manager is logged in, show project backers -->
+                <% if can? :manage, @project %> 
+                	<%= link_to 'See project backers', project_pledges_path(@project), class: "btn btn-success btn-lg" %>
+                <!-- otherwsie let non project owners back this project --> 
+                <% else %> 
+                	<%= link_to 'Back this project', new_project_pledge_path(@project), class: "btn btn-success btn-lg" %>
+                <% end %> 
+                
+                
                 <p class="project-time">This project will expire in 3 days.</p>
 			</div>
+			
 		</div>
 
 		<!-- small description -->
@@ -41,8 +56,14 @@
 			<p><%= @project.description %></p>
 		</div>
 		<div class="col-md-4">
+			
 			<p><%= render @rewards %></p>
-			<%= link_to 'Add Reward', new_project_reward_path(@project), class: "btn btn-primary" %>
+			
+			<!-- if project owner is logged in let them add reward --> 
+			<% if can? :manage, @project.rewards.build %>
+				<%= link_to 'Add Reward', new_project_reward_path(@project), class: "btn btn-primary" %>
+			<% end %> 
+			
 		</div>
 	</div>
 </div>

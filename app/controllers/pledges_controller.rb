@@ -5,9 +5,12 @@ class PledgesController < ApplicationController
   before_action :set_reward
 
   def index
+    #using can can gem authorizes the user can access the project looking at the ability model
+    authorize! :manage, @project
+    
     @pledges = @project.pledges
     respond_to do |format|
-      format.html 
+      format.html
     end
   end
 
@@ -21,12 +24,12 @@ class PledgesController < ApplicationController
 
   private
 
-    def set_project
-      @project = Project.friendly.find(params[:project_id])
-    end
-
-    def set_reward
-      @reward = @project.rewards.find_by_id(params[:reward_id])      
-    end
+  def set_project
+    @project = Project.friendly.find(params[:project_id])
+  end
+  
+  def set_reward
+    @reward = @project.rewards.find_by_id(params[:reward_id])      
+  end
 
 end

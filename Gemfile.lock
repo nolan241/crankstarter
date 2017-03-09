@@ -74,6 +74,7 @@ GEM
     builder (3.2.2)
     byebug (9.0.6)
     callsite (0.0.11)
+    cancancan (1.16.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -229,6 +230,7 @@ DEPENDENCIES
   bootstrap-wysihtml5-rails!
   braintree
   byebug
+  cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
   date_validator
   datetimepicker-rails!

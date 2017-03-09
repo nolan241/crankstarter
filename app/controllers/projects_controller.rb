@@ -19,6 +19,13 @@ class ProjectsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_project, only: [:show, :edit, :update, :destroy]
     
+    #set the pledges on the "show" view, so we know which pledges to display
+    before_action :set_pledges, only: [:show]
+    
+    #authorize user - uses the can can ability to apply to each of the definitions below
+    #https://github.com/CanCanCommunity/cancancan/wiki/Authorizing-controller-actions
+    load_and_authorize_resource
+    
     def index
         @projects = Project.all
         @displayed_projects = Project.take(4)
@@ -26,6 +33,7 @@ class ProjectsController < ApplicationController
     
     def new
         @project = Project.new
+        @days_to_go = @project.days_to_go
     end
     
     def create
@@ -69,15 +77,18 @@ class ProjectsController < ApplicationController
         end
     end
     
-    
   private
 
     def set_project
       @project = Project.friendly.find(params[:id])
     end
-    
+
     def project_params
-      params.require(:project).permit(:name, :short_description, :description, :goal, :image_url, :expiration_date)
+    	params.require(:project).permit(:name, :short_description, :description, :goal, :image_url, :expiration_date)
+    end    
+    
+    def set_pledges
+      @pledges = @project.pledges
     end
 
 end

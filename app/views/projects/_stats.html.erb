@@ -3,7 +3,7 @@
 		<!-- number of backers -->
 		<div class="col-xs-4 col-sm-12">
 			<div class="val">
-				10
+				<%= @pledges.count %>
 			</div>
 			<div class="lab">
 				backers
@@ -13,7 +13,7 @@
 		<!-- goal -->
 		<div class="col-xs-4 col-sm-12">
 			<div class="val">
-				1000$
+				<%= number_to_currency(@project.total_backed_amount, unit: "$", precision: 0) %>
 			</div>
 			<div class="lab">
 				goal
@@ -23,7 +23,7 @@
 		<!-- days to go -->
 		<div class="col-xs-4 col-sm-12">
 			<div class="val">
-				4
+				<%= @days_to_go %> 
 			</div>
 			<div class="lab">
 				days to go

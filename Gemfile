@@ -65,3 +65,6 @@ gem 'delayed_job_web'
 
 # friendly id for using common phrases in url
 gem 'friendly_id', '~> 5.1.0' 
+
+# Cancancan
+gem 'cancancan', '~> 1.10'
