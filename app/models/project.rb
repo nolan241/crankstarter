@@ -39,12 +39,12 @@ class Project < ActiveRecord::Base
 
     def funding_percentage
         backed = total_backed_amount
-        backed.zero? ? 0 : (backed/goal*100).to.f.round
+        backed.zero? ? 0 : (backed/goal*100).to_f.round
     end
     
     #returns an integer with the difference between the current day and the project's expiration date
 	def days_to_go
-		#(self.expiration_date.to_date - Date.today).to_i
+		(self.expiration_date.to_date - Date.today).to_i
 	end
     
     def funded?

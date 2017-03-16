@@ -67,6 +67,7 @@ class ProjectsController < ApplicationController
     
     def show
     	@rewards = @project.rewards
+    	@days_to_go = @project.days_to_go
     end
     
     def destroy
