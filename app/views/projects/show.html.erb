@@ -33,7 +33,7 @@
                 <% end %> 
                 
                 
-                <p class="project-time">This project will expire in <%= @project.days_to_go %> days.</p>
+                <p class="project-time"><%= funding_status_message @project %></p>
 			</div>
 			
 		</div>
